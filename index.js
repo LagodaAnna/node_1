@@ -1,4 +1,17 @@
-const app = require("./src/app");
-const { PORT } = require('./src/config')
+const mongoose = require("mongoose");
 
-app.listen(PORT);
+const app = require("./src/app");
+
+const { DB_URL, PORT } = require('./src/config');
+
+mongoose
+  .connect(DB_URL)
+  .then(() =>
+    app.listen(PORT, () => {
+      console.log("Database connection successful");
+    })
+  )
+  .catch((error) => {
+    console.log(error.message);
+    process.exit(1);
+  });

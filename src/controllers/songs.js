@@ -1,4 +1,9 @@
+const requestError = require("../helpers/requestError");
+
+const Song = require("../models/song");
+
 const getSongs = async (req, res) => {
+  throw requestError(404, "Not found");
   res.sendStatus(200);
 };
 
@@ -7,7 +12,8 @@ const getOneSong = async (req, res) => {
 };
 
 const createSong = async (req, res) => {
-  res.sendStatus(201);
+  const createdSong = await Song.create(req.body);
+  res.status(201).json(createdSong);
 };
 
 const removeSong = async (req, res) => {
