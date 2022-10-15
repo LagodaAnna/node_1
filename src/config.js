@@ -1,5 +1,5 @@
 require("dotenv").config();
 
-const { PORT = 3333 } = process.env;
+const { DB_URL = '', PORT = 3333 } = process.env;
 
-module.exports = { PORT };
+module.exports = { PORT, DB_URL };
