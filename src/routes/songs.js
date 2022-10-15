@@ -1,21 +1,25 @@
-const express = require('express');
+const express = require("express");
+const {
+  getSongs,
+  getOneSong,
+  createSong,
+  removeSong,
+  editSong,
+  editSongFavorite,
+} = require("../controllers/songs");
 
 const router = express.Router();
 
-//READ ALL
-router.get('/', () => { });
+router.get("/", getSongs);
 
-//GET BY ID
-router.get('/:id', () => { });
+router.get("/:id", getOneSong);
 
-//CREATE
-router.post('/', () => { });
+router.post("/", createSong);
 
-//DELETE
-router.delete('/:id', () => { });
+router.delete("/:id", removeSong);
 
-//UPDATE
-router.put('/:id', () => { });
+router.put("/:id", editSong);
 
-//FAVORITE
-router.patch('/:id/favorite', () => { });
+router.patch("/:id/favorite", editSongFavorite);
+
+module.exports = router;

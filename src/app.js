@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
+const songsRouter = require("./routes/songs");
+
 const app = express();
 
 const format = app.get("env") === "development" ? "dev" : "short";
@@ -12,9 +14,7 @@ app.use(cors());
 
 app.use(morgan(format));
 
-app.get("/", (req, res) => {
-  res.send("All right!");
-});
+app.use("/api/songs", songsRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: "Not found" });
