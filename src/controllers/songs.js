@@ -1,18 +1,26 @@
-const requestError = require("../helpers/requestError");
-
-const Song = require("../models/song");
+const {
+  getSongsService,
+  getOneSongService,
+  createSongService,
+  removeSongService,
+  editSongService,
+  editSongFavoriteService,
+} = require("../services/songs");
 
 const getSongs = async (req, res) => {
-  throw requestError(404, "Not found");
-  res.sendStatus(200);
+  const songs = await getSongsService();
+  res.json(songs);
 };
 
+//TODO: add validation for params id
+
 const getOneSong = async (req, res) => {
-  res.sendStatus(230);
+  const { id } = req.params;
+  const oneSong = await getOneSongService(id);
+  oneSong ? res.json(oneSong) : res.status(404).json({ message: "Not found" });
 };
 
 const createSong = async (req, res) => {
-  const createdSong = await Song.create(req.body);
   res.status(201).json(createdSong);
 };
 
