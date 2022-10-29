@@ -1,4 +1,6 @@
 const { Schema, model } = require("mongoose");
+const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi);
 
 const songSchema = new Schema(
   {
@@ -9,7 +11,7 @@ const songSchema = new Schema(
     },
     singer: {
       type: String,
-      default: "Unknow",
+      default: "Unknown",
     },
     date: {
       type: Date,
@@ -23,6 +25,22 @@ const songSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
+const addSchema = Joi.object({
+  title: Joi.string().required(),
+  singer: Joi.string(),
+  date: Joi.date().required(),
+  favorite: Joi.boolean(),
+});
+
+const idSchema = Joi.object({
+  id: Joi.objectId().required(),
+});
+
+const schemas = { addSchema, idSchema };
+
 const Song = model("song", songSchema);
 
-module.exports = Song;
+module.exports = {
+  Song,
+  schemas,
+};

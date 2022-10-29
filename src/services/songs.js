@@ -1,4 +1,4 @@
-const Song = require("../models/song");
+const { Song } = require("../models/song");
 
 const getSongsService = async () => {
   const result = await Song.find();
@@ -10,9 +10,15 @@ const getOneSongService = async (id) => {
   return result;
 };
 
-const createSongService = async () => {};
+const createSongService = async (song) => {
+  const result = await Song.create(song);
+  return result;
+};
 
-const removeSongService = async () => {};
+const removeSongService = async (id) => {
+  const result = await Song.findByIdAndRemove(id);
+  return result;
+};
 
 const editSongService = async () => {};
 

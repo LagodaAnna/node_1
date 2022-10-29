@@ -12,8 +12,6 @@ const getSongs = async (req, res) => {
   res.json(songs);
 };
 
-//TODO: add validation for params id
-
 const getOneSong = async (req, res) => {
   const { id } = req.params;
   const oneSong = await getOneSongService(id);
@@ -21,11 +19,17 @@ const getOneSong = async (req, res) => {
 };
 
 const createSong = async (req, res) => {
-  res.status(201).json(createdSong);
+  const { body } = req;
+  const newSong = await createSongService(body);
+  res.status(201).json(newSong);
 };
 
 const removeSong = async (req, res) => {
-  res.sendStatus(231);
+  const { id } = req.params;
+  const currentSong = await removeSongService(id);
+  currentSong
+    ? res.json(currentSong)
+    : res.status(404).json({ message: "Not found" });
 };
 
 const editSong = async (req, res) => {

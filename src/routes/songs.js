@@ -8,17 +8,21 @@ const {
   editSongFavorite,
 } = require("../controllers/songs");
 
-const wrapper = require('../helpers/wrapper')
+const validator = require("../middlewares/validation");
+
+const { schemas } = require("../models/song");
+
+const wrapper = require("../helpers/wrapper");
 
 const router = express.Router();
 
 router.get("/", wrapper(getSongs));
 
-router.get("/:id", wrapper(getOneSong));
+router.get("/:id", validator.params(schemas.idSchema), wrapper(getOneSong));
 
-router.post("/", wrapper(createSong));
+router.post("/", validator.body(schemas.addSchema), wrapper(createSong));
 
-router.delete("/:id", wrapper(removeSong));
+router.delete("/:id", validator.params(schemas.idSchema), wrapper(removeSong));
 
 router.put("/:id", wrapper(editSong));
 
