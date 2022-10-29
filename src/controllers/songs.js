@@ -33,11 +33,21 @@ const removeSong = async (req, res) => {
 };
 
 const editSong = async (req, res) => {
-  res.sendStatus(232);
+  const { id } = req.params;
+  const { body } = req;
+  const editedSong = await editSongService(id, body);
+  editedSong
+    ? res.json(editedSong)
+    : res.status(404).json({ message: "Not found" });
 };
 
 const editSongFavorite = async (req, res) => {
-  res.sendStatus(233);
+  const { id } = req.params;
+  const { body } = req;
+  const editedSong = await editSongFavoriteService(id, body);
+  editedSong
+    ? res.json(editedSong)
+    : res.status(404).json({ message: "Not found" });
 };
 
 module.exports = {

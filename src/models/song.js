@@ -36,7 +36,18 @@ const idSchema = Joi.object({
   id: Joi.objectId().required(),
 });
 
-const schemas = { addSchema, idSchema };
+const updateSchema = Joi.object({
+  title: Joi.string(),
+  singer: Joi.string(),
+  date: Joi.date(),
+  favorite: Joi.boolean(),
+}).min(1);
+
+const favoriteSchema = Joi.object({
+    favorite: Joi.boolean().required(),
+});
+
+const schemas = { addSchema, idSchema, updateSchema, favoriteSchema };
 
 const Song = model("song", songSchema);
 

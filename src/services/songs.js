@@ -20,9 +20,15 @@ const removeSongService = async (id) => {
   return result;
 };
 
-const editSongService = async () => {};
+const editSongService = async (id, song) => {
+  const result = await Song.findByIdAndUpdate(id, song, { new: true });
+  return result;
+};
 
-const editSongFavoriteService = async () => {};
+const editSongFavoriteService = async (id, body) => {
+  const result = await Song.findByIdAndUpdate(id, body, { new: true });
+  return result;
+};
 
 module.exports = {
   getSongsService,
