@@ -1,7 +1,12 @@
 const { Song } = require("../models/song");
 
-const getSongsService = async () => {
-  const result = await Song.find();
+const getSongsService = async (filter = "") => {
+  const filteredArr = filter.split("|");
+  const [, title = "", , favorite = [false, true]] = filteredArr;
+  const result = await Song.find({
+    title: { $regex: new RegExp(title, "i") },
+    favorite,
+  });
   return result;
 };
 

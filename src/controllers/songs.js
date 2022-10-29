@@ -8,7 +8,9 @@ const {
 } = require("../services/songs");
 
 const getSongs = async (req, res) => {
-  const songs = await getSongsService();
+  const { filter } = req.query;
+
+  const songs = await getSongsService(filter);
   res.json(songs);
 };
 

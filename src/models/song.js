@@ -20,6 +20,7 @@ const songSchema = new Schema(
     favorite: {
       type: Boolean,
       default: false,
+      index: true,
     },
   },
   { versionKey: false, timestamps: true }
@@ -44,7 +45,7 @@ const updateSchema = Joi.object({
 }).min(1);
 
 const favoriteSchema = Joi.object({
-    favorite: Joi.boolean().required(),
+  favorite: Joi.boolean().required(),
 });
 
 const schemas = { addSchema, idSchema, updateSchema, favoriteSchema };
